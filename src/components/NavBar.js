@@ -22,9 +22,8 @@ class NavBar extends React.Component{
                
                 <div className="collapse navbar-collapse" id="navbarResponsive">
                     <ul className="navbar-nav">
-                        <NavBarItem href="#/home" label="home"/>
-                        <NavBarItem href="#/lista-pessoa" label="Clientes"/>
-                        <NavBarItem href="#/prontuario" label="Prontuarios"/>
+                        <NavBarItem href="#/login" label="home"/>
+                        <NavBarItem href="#/pessoa" label="Pessoas"/>
                         <li className="nav-item" >
                             <a className="nav-link" onClick={this.loggff}>Sair</a>
                         </li>
