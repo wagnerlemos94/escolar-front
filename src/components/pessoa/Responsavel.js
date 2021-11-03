@@ -19,7 +19,10 @@ class Responsavel extends React.Component{
         return(
             <>
                 <div className="col">
-                    <Select options={this.state.parentesco} />
+                    <div className="input-group input-group mb-3">
+                        <span className="input-group-text" id="inputGroup-sizing-sm">parentesco</span>
+                        <Select options={this.state.parentesco} />
+                    </div>
                 </div>
                 <div className="col-12">
                     <div className="col">
