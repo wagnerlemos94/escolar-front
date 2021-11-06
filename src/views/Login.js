@@ -39,30 +39,32 @@ class Login extends React.Component{
 
     render(){
         return(            
-            <div className="row">
+            <div className="row mt-5">
                 
                 <div className="col-md-6" style={ {position:'relative', left: '300px'}}>
                     <div className="bs-docs-section">
-                        <Card title="Login">
+                        <Card className="mt-5" title="Login">
                             <div className="row">
                                 <div className="col-lg-12">
                                     <div className="bs-component">
                                         <fieldset>
                                             <FormGroup label="" htmlFor="inputEmail">
-                                            <MDBInput label="Email: *" icon="envelope" group type="email" validate error="wrong"
+                                                <label className="mt-4 mb-2">Email: </label>
+                                            <MDBInput label="" icon="envelope" group type="email" validate error="wrong"
                                                     success="right"
                                                     id="inputEmail"
                                                     value={this.state.email}
                                                     onChange={e => this.setState({email: e.target.value})}
-                                                />                                  
-                                            <MDBInput label="password" icon="lock" group type="password"
+                                                />                   
+                                                <label className="mt-4 mb-2">Password: </label>               
+                                            <MDBInput label="" icon="lock" group type="password"
                                                 value={this.state.senha}
                                                 onChange={e => this.setState({senha: e.target.value})}
                                                 id="inputPassword"
                                                 validate />
                                             </FormGroup>
                                             <center>
-                                                <button onClick={this.entrar} type="button" className="btn btn-primary">Login</button>                                        
+                                                <button onClick={this.entrar} type="button" className="btn btn-primary col-12 mt-4">Login</button>                                        
                                             </center>
                                         </fieldset>
                                     </div>

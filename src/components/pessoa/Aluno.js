@@ -16,6 +16,7 @@ class Aluno extends React.Component{
                 <div className="input-group input-group mb-3">
                     <span className="input-group-text" id="inputGroup-sizing-sm">Colegio</span>
                     <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                     value={this.props.aluno.colegio}
                      onChange={e => this.props.aluno.colegio = e.target.value}/>
                 </div>
             </div>
@@ -23,6 +24,7 @@ class Aluno extends React.Component{
                 <div className="input-group input-group mb-3">
                     <span className="input-group-text" id="inputGroup-sizing-sm">Serie</span>
                     <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                     value={this.props.aluno.serie}
                      onChange={e => this.props.aluno.serie = e.target.value}/>
                 </div>
             </div>
@@ -30,6 +32,7 @@ class Aluno extends React.Component{
                 <div className="input-group input-group mb-3">
                     <span className="input-group-text" id="inputGroup-sizing-sm">Turma</span>
                     <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                     value={this.props.aluno.turma}
                      onChange={e => this.props.aluno.turma = e.target.value}/>
                 </div>
             </div>
@@ -44,6 +47,7 @@ class Aluno extends React.Component{
                 <div className="input-group input-group mb-3">
                     <span className="input-group-text" id="inputGroup-sizing-sm">Mãe</span>
                     <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                    value={this.props.aluno.mae}
                     onChange={e => this.props.aluno.mae = e.target.value}/>
                 </div>
             </div>
@@ -51,6 +55,7 @@ class Aluno extends React.Component{
                 <div className="input-group input-group mb-3">
                     <span className="input-group-text" id="inputGroup-sizing-sm">Pai</span>
                     <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                    value={this.props.aluno.pai}
                     onChange={e => this.props.aluno.pai = e.target.value}/>
                 </div>
             </div>
@@ -58,7 +63,8 @@ class Aluno extends React.Component{
                 <div className="input-group input-group mb-3">
                     <span className="input-group-text" id="inputGroup-sizing-sm">Convênio Médico</span>
                     <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
-                    onChange={e => this.props.aluno.convenioMedico = e.target.value}/>
+                    value={this.props.aluno.convMedico}
+                    onChange={e => this.props.aluno.convMedico = e.target.value}/>
                 </div>
             </div>
             </>

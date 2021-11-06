@@ -1,11 +1,12 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import Card from '../Card';
-import FormGroup from '../FormGroup';
-import Responsavel from './Responsavel';
-import Aluno from './Aluno';
-import Condutor from './Condutor';
-import AlunoService from '../../app/service/AlunoService';
+import Card from '../components/Card';
+import FormGroup from '../components/FormGroup';
+import Responsavel from '../components/pessoa/Responsavel';
+import Aluno from '../components/pessoa/Aluno';
+import Condutor from '../components/pessoa/Condutor';
+import AlunoService from '../app/service/AlunoService';
+import LocalStorageService from '../app/service/LocalStorageService';
 
 class Pessoa extends React.Component{
 
@@ -16,13 +17,13 @@ class Pessoa extends React.Component{
    
     state = {
         perfil:null,
-        title:"Pessoa",
+        titulo:"Cadastro",
         pessoa:{
             nome:"",
             cpf:"",
             rg:"",
-            nascimento:"",
-            enderecos:[]
+            dtNascimento:"",
+            enderecos:[],
         },
         endereco:{
             cep:"",
@@ -38,12 +39,43 @@ class Pessoa extends React.Component{
         contatos:[]
     }
 
+    componentDidMount(){
+        const usuarioEdit = LocalStorageService.obterItem("_usuario_edit");
+        if(usuarioEdit){
+            this.setState({
+                pessoa:usuarioEdit.pessoa,
+                endereco:usuarioEdit.endereco,
+                celular:usuarioEdit.celular,
+                email:usuarioEdit.email,
+                titulo:usuarioEdit.titulo,
+                idCelular:usuarioEdit.idCelular,
+                idEmail:usuarioEdit.idEmail
+            });
+            if(usuarioEdit.pessoa.serie){
+                this.setState({
+                    perfil:"3",
+                });
+                this.setState({aluno:{
+                    ...this.state.aluno,
+                    mae:usuarioEdit.pessoa.mae,
+                    pai:usuarioEdit.pessoa.pai,
+                    convMedico:usuarioEdit.pessoa.convMedico,
+                    serie:usuarioEdit.pessoa.serie,
+                    turma:usuarioEdit.pessoa.turma,
+                    turno:usuarioEdit.pessoa.turno
+                }});
+            }
+            console.log(usuarioEdit);
+        } 
+    }
+
     salvar = () => {
         this.state.pessoa.enderecos.push(this.state.endereco);
         const pessoa = this.state.pessoa;
-
+        Object.assign(pessoa,this.state.aluno);
+        
         this.service.salvar(pessoa).then(response =>{            
-            console.log(response);
+            this.props.history.push('/pessoa');
         }).catch(erro =>{
             console.log(erro);
         })
@@ -51,7 +83,7 @@ class Pessoa extends React.Component{
 
     render(){
         return(            
-            <Card className="mt-5" title={this.state.title}>
+            <Card className="mt-5" title={this.state.titulo}>
             <form>
                 <FormGroup label="Dados Pessois">
                     <div className="row mt-3">
@@ -59,7 +91,8 @@ class Pessoa extends React.Component{
                             <div className="input-group input-group mb-3">
                                 <span className="input-group-text" id="inputGroup-sizing-sm">Nome</span>
                                 <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
-                                    onChange={e => this.setState({pessoa:{
+                                   value={this.state.pessoa.nome}
+                                   onChange={e => this.setState({pessoa:{
                                         ...this.state.pessoa,
                                         nome: e.target.value
                                     }})}
@@ -70,6 +103,7 @@ class Pessoa extends React.Component{
                             <div className="input-group input-group mb-3">
                                 <span className="input-group-text" id="inputGroup-sizing-sm">CPF</span>
                                 <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
+                               value={this.state.pessoa.cpf}
                                onChange={e => this.setState({pessoa:{
                                 ...this.state.pessoa,
                                 cpf: e.target.value
@@ -81,6 +115,7 @@ class Pessoa extends React.Component{
                             <div className="input-group input-group mb-3">
                                 <span className="input-group-text" id="inputGroup-sizing-sm">RG</span>
                                 <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
+                               value={this.state.pessoa.rg}
                                onChange={e => this.setState({pessoa:{
                                 ...this.state.pessoa,
                                 rg: e.target.value
@@ -88,13 +123,14 @@ class Pessoa extends React.Component{
                         />
                             </div>
                         </div>
-                        <div className="col">
+                        <div className="col-4">
                             <div className="input-group input-group mb-3">
                                 <span className="input-group-text" id="inputGroup-sizing-sm">Nascimento</span>
                                 <input type="date" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
+                               value={this.state.pessoa.dtNascimento}
                                onChange={e => this.setState({pessoa:{
                                 ...this.state.pessoa,
-                                nascimento: e.target.value
+                                dtNascimento: e.target.value
                             }})}
                         />
                             </div>
@@ -120,7 +156,7 @@ class Pessoa extends React.Component{
                         }
                     </div>
                 </FormGroup>
-                <FormGroup label="Endereço">
+                {/* <FormGroup label="Endereço">
                     <div className="row mt-3">
                         <div className="col-4">
                             <div className="input-group input-group mb-3">
@@ -190,7 +226,7 @@ class Pessoa extends React.Component{
                             </div>
                         </div>
                     </div>
-                </FormGroup>
+                </FormGroup> */}
                 <div>
                     <button type="button" className="btn btn-primary" onClick={this.salvar}>Salvar</button>
                 </div>
